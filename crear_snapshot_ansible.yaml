@@ -1,0 +1,20 @@
+---
+- name: Crear (o recrear) un snapshot de una máquina virtual en VMware vSphere
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Crear un snapshot de la máquina virtual
+      community.vmware.vmware_guest_snapshot:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: no
+        datacenter: "{{ datacenter_name }}"
+        folder: "{{ folder_name }}"  # Opcional si la VM está en una carpeta específica
+        name: "{{ vm_name }}"
+        snapshot_name: "{{ snapshot_name }}"
+        description: "Snapshot creado por Ansible"
+        state: present
+        memory: no  # Cambia a 'yes' si quieres incluir la memoria en el snapshot
+        quiesce: yes  # Asegura la consistencia del sistema de archivos antes del snapshot
+      delegate_to: localhost
