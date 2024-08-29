@@ -1,0 +1,8 @@
+---
+- name: Crear un archivo con "Hola mundo" en un servidor Linux
+  hosts: servidores_linux
+  tasks:
+    - name: Crear el archivo hola.txt
+      ansible.builtin.copy:
+        content: "Hola mundo\n"
+        dest: /tmp/hola.txt
